@@ -32,6 +32,7 @@
 // backend/server.js
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 const http = require('http'); // 1. Import http
 const { WebSocketServer } = require('ws'); // 2. Import ws
@@ -42,6 +43,8 @@ const db = require('./db'); // 4. Import db
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 // --- API Routes ---
 const authRoutes = require('./routes/auth');
