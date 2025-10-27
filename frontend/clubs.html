@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clubs - CampusConnect</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/clubs.css" />
+  </head>
+  <body>
+    <header class="dashboard-header">
+      <h1>CampusConnect Clubs</h1>
+      <div>
+        <a href="dashboard.html" class="header-link">Dashboard</a>
+        <a href="clubs.html" class="header-link">Clubs</a>
+        <button id="logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <main class="dashboard-main">
+      <div class="club-list-container">
+        <h2>Select a Club</h2>
+        <div id="club-list-buttons">
+          <p class="loading-text">Loading clubs...</p>
+        </div>
+      </div>
+
+      <div class="club-member-container" id="member-container">
+        <h2 id="member-list-title">Club Members</h2>
+        <div id="member-list">
+          </div>
+      </div>
+    </main>
+
+    <script src="js/clubs.js"></script>
+  </body>
+</html>

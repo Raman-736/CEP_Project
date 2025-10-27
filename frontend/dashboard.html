@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - CampusConnect</title>
+    <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/dashboard.css" />
+  </head>
+  <body>
+    <header class="dashboard-header">
+  <h1>Welcome to CampusConnect</h1>
+  <div> <a href="dashboard.html" class="header-link">Dashboard</a>
+    <a href="clubs.html" class="header-link">Clubs</a> <button id="logout-btn">Logout</button>
+  </div>
+</header>
+
+    <main class="dashboard-main">
+      <div class="my-chats-container">
+        <h2>My Chats</h2>
+        <div id="chat-list">
+          <p class="loading-text">Loading your chats...</p>
+        </div>
+      </div>
+      <div class="search-container">
+      <div class="search-container">
+        <form id="search-form">
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Search seniors by name, branch, etc..."
+          />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <div class="user-list-container">
+        <h2>Seniors Available to Help</h2>
+        <div id="user-list">
+          <p class="loading-text">Loading seniors...</p>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

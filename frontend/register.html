@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - CampusConnect</title>
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
+  <body>
+    <div class="form-container">
+      <form id="register-form">
+        <h2>Create Account</h2>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" required />
+        </div>
+        <div class="form-group">
+          <label for="user_role">I am a...</label>
+          <select id="user_role" required>
+            <option value="">--Select Role--</option>
+            <option value="junior">Junior (Seeking help)</option>
+            <option value="senior">Senior (Offering help)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="year">Year</label>
+          <input type="number" id="year" placeholder="E.g., 1, 2, 3, 4" />
+        </div>
+        <div class="form-group">
+          <label for="branch">Branch</label>
+          <input
+            type="text"
+            id="branch"
+            placeholder="E.g., Computer Science"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="club">Club</label>
+          <select id="club" required>
+            <option value="1">None</option>
+            <option value="2">P.I.S.B.(PICT IEEE Student Branch)</option>
+            <option value="3">PICT Automobile Club</option>
+            <option value="4">PASC</option>
+            <option value="5">ETHICRAFT CLUB</option>
+            <option value="6">PICTOREAL</option>
+            <option value="7">GameDevUtopia</option>
+            <option value="8">PICT CyberCell</option>
+            <option value="9">PICT CSI Student Branch (PCSB)</option>
+            <option value="10">AWS Cloud Clubs PICT</option>
+            <option value="11">TEDxPICT</option>
+            <option value="12">PICT Finance Society (PFISOC)</option>
+            <option value="13">EDC (Entrepreneurship Development Cell)</option>
+            <option value="14">PICT MUN</option>
+            <option value="15">PICT DebSoc - Debate Society</option>
+            <option value="16">PICT Robotics</option>
+            <option value="17">PICT NSS</option>
+            <option value="18">PICT Art Circle</option>
+            <option value="19">PICT Nakshatra</option>
+            <option value="20">PICT CSAC</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="skills">Skills / Domains</label>
+          <input
+            type="text"
+            id="skills"
+            placeholder="e.g., Python, AIML, Web Dev (comma-separated)"
+          />
+        </div>
+        <button type="submit">Register</button>
+        <p class="message" id="form-message"></p>
+        <p>Already have an account? <a href="index.html">Login here</a></p>
+      </form>
+    </div>
+
+    <script src="js/auth.js"></script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+/* frontend/css/clubs.css */
+
+.club-list-container {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+#club-list-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.club-button {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #007bff;
+  background-color: #f8f9fa;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.club-button:hover, .club-button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.club-member-container {
+  display: none; /* Hidden by default */
+}
+
+#member-list-title {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* We re-use .user-card from dashboard.css */
+/* But we need to make the chat button work for ALL users */
+#member-list .user-card button {
+  background-color: #28a745;
+}
+#member-list .user-card button:hover {
+  background-color: #218838;
+}
