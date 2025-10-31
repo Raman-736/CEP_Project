@@ -74,3 +74,19 @@ button:hover {
 .message.error {
   color: red;
 }
+
+.back-to-home {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.back-to-home a {
+  color: #555;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-to-home a:hover {
+  color: #007bff;
+  text-decoration: underline;
+}

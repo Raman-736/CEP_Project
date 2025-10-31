@@ -24,10 +24,14 @@ body {
   left: 0;
 }
 
-.dashboard-header h1 {
-  margin: 0;
+.header-logo-link {
+  display: flex;
+  align-items: center;
   font-size: 1.5rem;
+  font-weight: 700;
   color: #007bff;
+  text-decoration: none;
+  margin: 0;
 }
 
 #logout-btn {
@@ -54,4 +58,67 @@ body {
 }
 .header-link:hover {
   text-decoration: underline;
+}
+
+/* --- HEADER DROPDOWN STYLES --- */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: Arial, sans-serif; /* Match other links */
+  padding: 0;
+}
+
+.dropdown-btn:hover {
+  text-decoration: underline;
+}
+
+.dropdown-content {
+  display: none; /* Hidden by default */
+  position: absolute;
+  background-color: #fff;
+  min-width: 250px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  z-index: 100;
+  right: 0; /* Aligns dropdown to the right */
+  max-height: 300px; /* Same as old list */
+  overflow-y: auto;
+}
+
+/* This class will be added by JavaScript */
+.dropdown-content.show {
+  display: block;
+}
+
+/* Style for links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Style for the "Loading" or "No chats" text */
+.dropdown-content .loading-text {
+  padding: 12px 16px;
+  color: #777;
+  font-size: 0.9rem;
+  text-align: center;
 }

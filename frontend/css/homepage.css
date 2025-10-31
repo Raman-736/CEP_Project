@@ -1,0 +1,179 @@
+/* --- Global Styles --- */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+.nav-container,
+.hero-container,
+.features-container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* --- 1. Navigation Bar --- */
+.homepage-nav {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.homepage-nav .nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #007bff;
+  text-decoration: none;
+  display: flex;         /* <-- ADD THIS */
+  align-items: center;  /* <-- ADD THIS */
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-link {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #555;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #007bff;
+}
+
+.nav-link-btn {
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.nav-link-btn {
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+.nav-link-btn.primary {
+  background-color: #007bff;
+  color: #fff;
+}
+.nav-link-btn:hover {
+  background-color: #0056b3;
+  color: #fff;
+  border-color: #0056b3;
+}
+
+/* --- 2. Hero Section --- */
+.hero {
+  background-color: #fff;
+  padding: 6rem 0;
+  text-align: center;
+}
+
+.hero-headline {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+}
+
+.hero-subheadline {
+  font-size: 1.25rem;
+  color: #555;
+  max-width: 600px;
+  margin: 1rem auto 2rem;
+  line-height: 1.6;
+}
+
+.hero-btn {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #007bff;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.hero-btn:hover {
+  background-color: #0056b3;
+}
+
+/* --- 3. Features Section --- */
+.features {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  color: #007bff;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.feature-card p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --- 4. Footer --- */
+.homepage-footer {
+  text-align: center;
+  padding: 2rem 0;
+  background-color: #fff;
+  border-top: 1px solid #eee;
+  margin-top: 2rem;
+}
+
+.homepage-footer p {
+  margin: 0;
+  color: #777;
+}

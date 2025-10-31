@@ -23,24 +23,26 @@
           <input type="password" id="password" required />
         </div>
         <div class="form-group">
-          <label for="user_role">I am a...</label>
-          <select id="user_role" required>
-            <option value="">--Select Role--</option>
-            <option value="junior">Junior (Seeking help)</option>
-            <option value="senior">Senior (Offering help)</option>
+          <label for="year">Year</label>
+          <select id="year" required>
+            <option value="">--Select Year--</option>
+            <option value="1">1st Year</option>
+            <option value="2">2nd Year</option>
+            <option value="3">3rd Year</option>
+            <option value="4">4th Year</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="year">Year</label>
-          <input type="number" id="year" placeholder="E.g., 1, 2, 3, 4" />
-        </div>
+
         <div class="form-group">
           <label for="branch">Branch</label>
-          <input
-            type="text"
-            id="branch"
-            placeholder="E.g., Computer Science"
-          />
+          <select id="branch" required>
+            <option value="">--Select Branch--</option>
+            <option value="Computer Engineering">Computer Engineering</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="Electronics and Telecommunication">Electronics and Telecommunication</option>
+            <option value="Electronics and Computer">Electronics and Computer</option>
+            <option value="Artificial Intelligence and Data Science">Artificial Intelligence and Data Science</option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -80,6 +82,7 @@
         <button type="submit">Register</button>
         <p class="message" id="form-message"></p>
         <p>Already have an account? <a href="index.html">Login here</a></p>
+        <p class="back-to-home"><a href="homepage.html">&larr; Back to Home</a></p>
       </form>
     </div>
 

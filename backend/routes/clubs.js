@@ -34,7 +34,7 @@ router.get('/:id/members', auth, async (req, res) => {
         u.email, 
         u.year, 
         u.branch,
-        u.user_role,
+        -- u.user_role, <-- THIS LINE IS REMOVED
         c.club_name,
         STRING_AGG(s.skill_name, ', ') AS skills
       FROM 

@@ -6,49 +6,6 @@
   margin: 2rem auto; /* Center the main content */
 }
 
-/* --- MY CHATS STYLES --- */
-.my-chats-container {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.my-chats-container h2 {
-  margin-top: 0;
-  color: #333;
-  margin-bottom: 1rem;
-}
-
-#chat-list {
-  /* ADD THIS: Set a maximum height */
-  max-height: 100px; 
-  
-  /* ADD THIS: Add a scrollbar if the content overflows */
-  overflow-y: auto; 
-}
-
-#chat-list .loading-text {
-  font-size: 1rem; /* Make it a bit smaller than the main loading */
-}
-
-#chat-list .chat-link {
-  display: block;
-  padding: 0.75rem 1rem;
-  background-color: #f8f9fa;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
-  text-decoration: none;
-  color: #007bff;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-#chat-list .chat-link:hover {
-  background-color: #e9ecef;
-}
 
 /* --- SEARCH & USER LIST STYLES --- */
 .search-container {

@@ -18,6 +18,69 @@ document.addEventListener('DOMContentLoaded', () => {
   const memberListTitle = document.getElementById('member-list-title');
   const memberList = document.getElementById('member-list');
   const logoutBtn = document.getElementById('logout-btn');
+  const chatList = document.getElementById('chat-dropdown-list');
+  // --- Dropdown Toggle ---
+const chatDropdownBtn = document.getElementById('chat-dropdown-btn');
+const chatDropdownList = document.getElementById('chat-dropdown-list');
+
+chatDropdownBtn.addEventListener('click', () => {
+  chatDropdownList.classList.toggle('show');
+});
+
+window.addEventListener('click', (e) => {
+  if (!e.target.matches('#chat-dropdown-btn')) {
+    if (chatDropdownList.classList.contains('show')) {
+      chatDropdownList.classList.remove('show');
+    }
+  }
+});
+
+// --- 4b. Fetch My Chats Function (MOVED TO CORRECT LOCATION) ---
+  const fetchMyChats = async () => {
+    try {
+      const res = await fetch(
+        'http://localhost:5000/api/chat/my-conversations',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': token,
+          },
+        }
+      );
+
+      if (res.status === 401) {
+        localStorage.removeItem('token');
+        window.location.href = 'index.html';
+        return;
+      }
+
+      const chats = await res.json();
+      renderMyChats(chats);
+    } catch (err) {
+      console.error(err);
+      chatList.innerHTML =
+        '<p class="message error">Error loading chats.</p>';
+    }
+  };
+
+  // --- 4c. Render My Chats Function (MOVED TO CORRECT LOCATION) ---
+  const renderMyChats = (chats) => {
+    chatList.innerHTML = '';
+    if (chats.length === 0) {
+      chatList.innerHTML =
+        '<p class="loading-text">You have no active chats.</p>';
+      return;
+    }
+
+    chats.forEach((chat) => {
+      const chatLink = document.createElement('a');
+      chatLink.className = 'chat-link';
+      chatLink.href = `chat.html?id=${chat.conversation_id}`;
+      chatLink.textContent = `Chat with ${chat.partner_username}`;
+      chatList.appendChild(chatLink);
+    });
+  };
 
   // --- Logout ---
   logoutBtn.addEventListener('click', () => {
@@ -81,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
   
-  // --- 4. Render Club Members ---
   const renderClubMembers = (members) => {
     memberList.innerHTML = '';
     
@@ -97,10 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
     otherMembers.forEach(member => {
       const card = document.createElement('div');
       card.className = 'user-card';
-      const roleDisplay = member.user_role.charAt(0).toUpperCase() + member.user_role.slice(1);
 
+      // --- THESE LINES ARE REMOVED ---
+      // const roleDisplay = member.user_role.charAt(0).toUpperCase() + member.user_role.slice(1);
+      // <h3>${member.username} (${roleDisplay})</h3>
+
+      // --- REPLACED WITH THIS ---
       card.innerHTML = `
-        <h3>${member.username} (${roleDisplay})</h3>
+        <h3>${member.username}</h3> 
         <p><span class="user-meta">Branch:</span> ${member.branch || 'N/A'}</p>
         <p><span class="user-meta">Year:</span> ${member.year || 'N/A'}</p>
         <p class="user-skills"><span class="user-meta">Skills:</span> ${member.skills || 'N/A'}</p>
@@ -140,4 +206,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Initial Load ---
   fetchClubs();
+  fetchMyChats();
 });

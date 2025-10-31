@@ -1,0 +1,123 @@
+.profile-main {
+  width: 90%;
+  max-width: 700px;
+  margin: 2rem auto;
+}
+
+.profile-container {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.profile-container h2 {
+  text-align: center;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+#profile-form hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 1.5rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  background-color: #f9f9f9;
+}
+
+/* This is the key: make disabled inputs look like text */
+.form-group input:disabled,
+.form-group select:disabled {
+  background-color: #fff;
+  border-color: #fff;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-left: 0;
+  color: #333;
+  cursor: default;
+}
+
+/* Style for when inputs are ENABLED */
+.form-group input:not(:disabled),
+.form-group select:not(:disabled) {
+  background-color: #fff;
+  border-color: #ddd;
+}
+.form-group input:not(:disabled):focus,
+.form-group select:not(:disabled):focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.form-buttons button {
+  width: auto;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#edit-profile-btn {
+  background-color: #007bff;
+}
+#edit-profile-btn:hover {
+  background-color: #0056b3;
+}
+
+#save-profile-btn {
+  background-color: #28a745;
+}
+#save-profile-btn:hover {
+  background-color: #218838;
+}
+
+#cancel-edit-btn {
+  background-color: #6c757d;
+}
+#cancel-edit-btn:hover {
+  background-color: #5a6268;
+}
+
+.hidden {
+  display: none;
+}
+
+.message {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+.message.success { color: green; }
+.message.error { color: red; }

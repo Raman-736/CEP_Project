@@ -4,9 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('token');
   const userList = document.getElementById('user-list');
   const logoutBtn = document.getElementById('logout-btn');
+  const chatDropdownBtn = document.getElementById('chat-dropdown-btn');
+  const chatDropdownList = document.getElementById('chat-dropdown-list');
   const searchForm = document.getElementById('search-form');
   const searchInput = document.getElementById('search-input');
-  const chatList = document.getElementById('chat-list');
+  const chatList = document.getElementById('chat-dropdown-list');
 
   // --- 1. Page Protection ---
   if (!token) {
@@ -31,12 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = 'index.html';
   });
 
-  // --- 3. Fetch Seniors Function ---
-  const fetchSeniors = async (searchQuery = '') => {
+  // --- 3. Fetch Users Function ---
+  const fetchUsers = async (searchQuery = '') => {
     try {
-      userList.innerHTML = '<p class="loading-text">Loading seniors...</p>';
+      userList.innerHTML = '<p class="loading-text">Loading users...</p>';
+      
+      // UPDATED URL: from '/api/users/seniors' to '/api/users'
       const res = await fetch(
-        `http://localhost:5000/api/users/seniors?search=${searchQuery}`,
+        `http://localhost:5000/api/users?search=${searchQuery}`, 
         {
           method: 'GET',
           headers: {
@@ -51,10 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'index.html';
         return;
       }
-      if (!res.ok) throw new Error('Failed to fetch seniors');
+      if (!res.ok) throw new Error('Failed to fetch users');
 
-      const seniors = await res.json();
-      renderSeniors(seniors);
+      const users = await res.json();
+      renderUsers(users); // Call the renamed render function
     } catch (err) {
       console.error(err);
       userList.innerHTML =
@@ -62,49 +66,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
- // --- 4. Render Seniors Function (UPDATED) ---
-const renderSeniors = (seniors) => {
-  userList.innerHTML = ''; // Clear loading text or previous results
+ // --- 4. Render Users Function ---
+  const renderUsers = (users) => {
+    userList.innerHTML = '';
 
-  let currentUserId = null;
-  try {
-    const token = localStorage.getItem('token');
-    currentUserId = JSON.parse(atob(token.split('.')[1])).user.id;
-  } catch (e) { /* ignore error, currentUserId remains null */ }
+    let currentUserId = null;
+    try {
+      currentUserId = JSON.parse(atob(token.split('.')[1])).user.id;
+    } catch (e) { /* ignore */ }
 
-  const otherSeniors = seniors.filter(
-    (senior) => senior.user_id !== currentUserId
-  );
+    const otherUsers = users.filter(
+      (user) => user.user_id !== currentUserId
+    );
 
-  if (otherSeniors.length === 0) {
-    userList.innerHTML =
-      '<p class="loading-text">No other seniors found matching your search.</p>';
-    return;
-  }
+    if (otherUsers.length === 0) {
+      // UPDATED text
+      userList.innerHTML =
+        '<p class="loading-text">No other users found matching your search.</p>';
+      return;
+    }
 
-  otherSeniors.forEach((senior) => {
-    const card = document.createElement('div');
-    card.className = 'user-card';
+    otherUsers.forEach((user) => {
+      const card = document.createElement('div');
+      card.className = 'user-card';
+      const clubDisplay = (user.club_name && user.club_name.toLowerCase() !== 'none') ? user.club_name : 'N/A';
 
-    // Check if club is 'None' or null, display 'N/A'
-    const clubDisplay = (senior.club_name && senior.club_name.toLowerCase() !== 'none') ? senior.club_name : 'N/A';
-
-    card.innerHTML = `
-      <h3>${senior.username}</h3>
-      <p><span class="user-meta">Branch:</span> ${senior.branch || 'N/A'}</p>
-      
-      <p class.user-club><span class="user-meta">Club:</span> ${clubDisplay}</p>
-      
-      <p><span class="user-meta">Year:</span> ${senior.year || 'N/A'}</p>
-      <p class="user-skills"><span class="user-meta">Skills:</span> ${senior.skills || 'N/A'}</p>
-      <p><span class="user-meta">Email:</span> ${senior.email}</p>
-      <button class="chat-btn" data-user-id="${
-        senior.user_id
-      }">Request to Chat</button>
-    `;
-    userList.appendChild(card);
-  });
-};
+      card.innerHTML = `
+        <h3>${user.username}</h3>
+        <p><span class="user-meta">Branch:</span> ${user.branch || 'N/A'}</p>
+        <p class.user-club><span class="user-meta">Club:</span> ${clubDisplay}</p>
+        <p><span class="user-meta">Year:</span> ${user.year || 'N/A'}</p>
+        <p class="user-skills"><span class="user-meta">Skills:</span> ${user.skills || 'N/A'}</p>
+        <p><span class="user-meta">Email:</span> ${user.email}</p>
+        <button class="chat-btn" data-user-id="${
+          user.user_id
+        }">Request to Chat</button>
+      `;
+      userList.appendChild(card);
+    });
+  };
 
   // --- 4b. Fetch My Chats Function (MOVED TO CORRECT LOCATION) ---
   const fetchMyChats = async () => {
@@ -158,7 +158,7 @@ const renderSeniors = (seniors) => {
   searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const query = searchInput.value.trim();
-    fetchSeniors(query);
+    fetchUsers(query); // <-- RENAMED
   });
 
   // Chat Button Click
@@ -190,7 +190,20 @@ const renderSeniors = (seniors) => {
     }
   }); // <-- THIS IS THE CORRECT END for userList.addEventListener
 
+  chatDropdownBtn.addEventListener('click', () => {
+  chatDropdownList.classList.toggle('show');
+});
+
+// Close the dropdown if clicking outside
+window.addEventListener('click', (e) => {
+  if (!e.target.matches('#chat-dropdown-btn')) {
+    if (chatDropdownList.classList.contains('show')) {
+      chatDropdownList.classList.remove('show');
+    }
+  }
+});
+
   // --- Initial load ---
-  fetchSeniors();
-  fetchMyChats(); // <-- This will now work!
+  fetchUsers(); // <-- RENAMED
+  fetchMyChats();
 });

@@ -9,13 +9,15 @@ const router = express.Router();
 // @route   POST /api/auth/register
 // @desc    Register a new user (UPDATED WITH SKILLS)
 router.post('/register', async (req, res) => {
-  // 1. Destructure all fields from body
-  const { username, email, password, user_role, year, branch, skills, club_id } = // <-- ADDED club_id
+  // 1. Destructure all fields from body (user_role is GONE)
+  const { username, email, password, year, branch, skills, club_id } =
     req.body;
 
   // 2. Validation
-  if (!username || !email || !password || !user_role) {
-    return res.status(400).json({ msg: 'Please enter all required fields' });
+  if (!username || !email || !password || !branch || !club_id) {
+    return res
+      .status(400)
+      .json({ msg: 'Please enter all required fields' });
   }
 
   // 3. Use a DB client for transaction
@@ -37,15 +39,13 @@ router.post('/register', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const password_hash = await bcrypt.hash(password, salt);
 
-    // 6. Save user to database
-    // --- THIS QUERY IS UPDATED ---
+    // 6. Save user to database (user_role is GONE from query)
     const newUser = await client.query(
-      `INSERT INTO users (username, email, password_hash, user_role, year, branch, club_id) 
-       VALUES ($1, $2, $3, $4, $5, $6, $7) 
-       RETURNING user_id, username, email, user_role`,
-      [username, email, password_hash, user_role, year, branch, club_id] // <-- ADDED club_id
+      `INSERT INTO users (username, email, password_hash, year, branch, club_id) 
+       VALUES ($1, $2, $3, $4, $5, $6) 
+       RETURNING user_id, username, email`, // Removed user_role
+      [username, email, password_hash, year, branch, club_id]
     );
-    // --- END UPDATE ---
 
     const newUserId = newUser.rows[0].user_id;
 
@@ -72,11 +72,10 @@ router.post('/register', async (req, res) => {
     // 8. Commit the transaction
     await client.query('COMMIT');
 
-    // 9. Create and return JWT
+    // 9. Create and return JWT (payload no longer has role)
     const payload = {
       user: {
         id: newUserId,
-        role: newUser.rows[0].user_role,
       },
     };
 

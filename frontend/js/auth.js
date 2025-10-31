@@ -5,16 +5,16 @@ const registerForm = document.getElementById('register-form');
 
 if (registerForm) {
   registerForm.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Stop the form from submitting normally
+    e.preventDefault();
 
     // --- Get all form values ---
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const user_role = document.getElementById('user_role').value;
+    // user_role is GONE
     const year = document.getElementById('year').value;
     const branch = document.getElementById('branch').value;
-    const club_id = document.getElementById('club').value; // <-- ADD THIS
+    const club_id = document.getElementById('club').value;
     const skillsInput = document.getElementById('skills').value;
     const messageEl = document.getElementById('form-message');
 
@@ -33,10 +33,10 @@ if (registerForm) {
           username,
           email,
           password,
-          user_role,
-          year: year ? parseInt(year) : null,
-          branch: branch ? branch : null,
-          club_id: parseInt(club_id), // <-- ADD THIS
+          // user_role is GONE
+          year: parseInt(year), // Year is now from a select
+          branch: branch,       // Branch is now from a select
+          club_id: parseInt(club_id),
           skills: skills,
         }),
       });

@@ -6,6 +6,86 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  // Set current user ID immediately
+  let currentUserId = null;
+  try {
+    currentUserId = JSON.parse(atob(token.split('.')[1])).user.id;
+  } catch (e) {
+    console.error('Invalid token, logging out.');
+    localStorage.removeItem('token');
+    window.location.href = 'index.html';
+    return;
+  }
+
+  const chatList = document.getElementById('chat-dropdown-list');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  // --- Logout Button ---
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('token');
+    window.location.href = 'index.html';
+  });
+
+  // --- Dropdown Toggle ---
+  const chatDropdownBtn = document.getElementById('chat-dropdown-btn');
+  const chatDropdownList = document.getElementById('chat-dropdown-list');
+
+  chatDropdownBtn.addEventListener('click', () => {
+    chatDropdownList.classList.toggle('show');
+  });
+
+  window.addEventListener('click', (e) => {
+    if (!e.target.matches('#chat-dropdown-btn')) {
+      if (chatDropdownList.classList.contains('show')) {
+        chatDropdownList.classList.remove('show');
+      }
+    }
+  });
+
+  // --- Fetch My Chats Function ---
+  const fetchMyChats = async () => {
+    try {
+      const res = await fetch(
+        'http://localhost:5000/api/chat/my-conversations',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': token,
+          },
+        }
+      );
+      if (res.status === 401) {
+        localStorage.removeItem('token');
+        window.location.href = 'index.html';
+        return;
+      }
+      const chats = await res.json();
+      renderMyChats(chats);
+    } catch (err) {
+      console.error(err);
+      chatList.innerHTML =
+        '<p class="message error">Error loading chats.</p>';
+    }
+  };
+
+  // --- Render My Chats Function ---
+  const renderMyChats = (chats) => {
+    chatList.innerHTML = '';
+    if (chats.length === 0) {
+      chatList.innerHTML =
+        '<p class="loading-text">You have no active chats.</p>';
+      return;
+    }
+    chats.forEach((chat) => {
+      const chatLink = document.createElement('a');
+      chatLink.className = 'chat-link';
+      chatLink.href = `chat.html?id=${chat.conversation_id}`;
+      chatLink.textContent = `Chat with ${chat.partner_username}`;
+      chatList.appendChild(chatLink);
+    });
+  };
+
   // --- Get Conversation ID from URL ---
   const params = new URLSearchParams(window.location.search);
   const conversationId = params.get('id');
@@ -20,14 +100,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatForm = document.getElementById('chat-form');
   const messageInput = document.getElementById('message-input');
 
-  let currentUserId = null; // We'll get this from the token
-
   // --- WebSocket Connection ---
-  const socket = new WebSocket('ws://localhost:5000'); // Connect to our backend
-
+  const socket = new WebSocket('ws://localhost:5000');
   socket.onopen = () => {
     console.log('WebSocket connected');
-    // Send a "join" message to the server to authenticate
     socket.send(
       JSON.stringify({
         type: 'join',
@@ -37,12 +113,11 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   };
 
+  // --- WebSocket onmessage ---
   socket.onmessage = (event) => {
-    // A new message is received from the server
     const msg = JSON.parse(event.data);
-
     if (msg.type === 'newMessage') {
-      renderMessage(msg);
+      renderMessage(msg.payload);
       scrollToBottom();
     }
   };
@@ -56,13 +131,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = messageInput.value.trim();
     if (text === '') return;
 
-    // Send the message over WebSocket
-    socket.send(
-      JSON.stringify({
-        type: 'message',
-        text: text,
-      })
-    );
+    if (socket.readyState === WebSocket.OPEN) {
+      socket.send(
+        JSON.stringify({
+          type: 'message',
+          text: text,
+        })
+      );
+    } else {
+      console.error('Socket is not open. State:', socket.readyState);
+      alert('Connection lost. Please reload the page.');
+    }
 
     messageInput.value = ''; // Clear the input
   });
@@ -72,20 +151,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const msgDiv = document.createElement('div');
     msgDiv.classList.add('message');
 
-    // Check if the message was sent by the current user
-    if (msg.senderId === currentUserId) {
+    if (msg.sender_id == currentUserId) {
       msgDiv.classList.add('sent');
     } else {
       msgDiv.classList.add('received');
     }
+    
+    // This string will now be a full UTC string (e.g., ...Z)
+    const messageDate = new Date(msg.created_at);
+
+    // This option will now correctly convert from UTC to IST
+    const timeOptions = {
+      timeZone: 'Asia/Kolkata', // Force Indian Standard Time
+      hour: 'numeric',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    };
+    const indianTime = messageDate.toLocaleTimeString('en-IN', timeOptions);
 
     msgDiv.innerHTML = `
-      <strong>${msg.senderUsername || 'User'}</strong>
-      <p>${msg.text}</p>
-      <span class="timestamp">${new Date(
-        msg.createdAt
-      ).toLocaleTimeString()}</span>
+      <strong>${msg.sender_username || 'User'}</strong>
+      <p>${msg.message_text}</p>
+      <span class="timestamp">${indianTime}</span>
     `;
+    
     messageContainer.appendChild(msgDiv);
   };
 
@@ -97,10 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Fetch Message History ---
   const fetchHistory = async () => {
     try {
-      // Decode token to get our own user ID
-      // This is a simple (but not 100% secure) way to get user ID on client
-      currentUserId = JSON.parse(atob(token.split('.')[1])).user.id;
-
       const res = await fetch(
         `http://localhost:5000/api/chat/history/${conversationId}`,
         {
@@ -118,13 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
       messageContainer.innerHTML = ''; // Clear "Loading..."
 
       history.forEach((msg) => {
-        // Rename keys to match our 'renderMessage' function
-        renderMessage({
-          ...msg,
-          text: msg.message_text,
-          senderUsername: msg.sender_username,
-          createdAt: msg.created_at,
-        });
+        renderMessage(msg);
       });
 
       scrollToBottom();
@@ -137,4 +217,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Initial Load ---
   fetchHistory();
+  fetchMyChats();
 });

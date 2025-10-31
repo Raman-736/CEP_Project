@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile - CampusConnect</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/profile.css" />
+  </head>
+  <body>
+    <header class="dashboard-header">
+      <a href="dashboard.html" class="header-logo-link">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px;">
+          <path d="M16 21V19C16 16.7909 14.2091 15 12 15H5C2.79086 15 1 16.7909 1 19V21" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8.5 11C10.7091 11 12.5 9.20914 12.5 7C12.5 4.79086 10.7091 3 8.5 3C6.29086 3 4.5 4.79086 4.5 7C4.5 9.20914 6.29086 11 8.5 11Z" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 21V19C20 16.7909 18.2091 15 16 15H12" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17.5 11C19.7091 11 21.5 9.20914 21.5 7C21.5 4.79086 19.7091 3 17.5 3C15.2909 3 13.5 4.79086 13.5 7C13.5 9.20914 15.2909 11 17.5 11Z" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>CampusConnect</span>
+      </a>
+      <div>
+        <a href="dashboard.html" class="header-link">Dashboard</a>
+        <a href="clubs.html" class="header-link">Clubs</a>
+         <div class="dropdown" id="chat-dropdown-container">
+          <button class="dropdown-btn" id="chat-dropdown-btn">My Chats</button>
+          <div class="dropdown-content" id="chat-dropdown-list">
+            <p class="loading-text">Loading...</p>
+          </div>
+        </div>
+        <button id="logout-btn">Logout</button>
+      </div>
+    </header>
+
+    <main class="profile-main">
+      <div class="profile-container">
+        <h2>My Profile</h2>
+        <form id="profile-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" disabled />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" disabled />
+          </div>
+
+          <hr />
+
+          <div class="form-group">
+            <label for="year">Year</label>
+            <select id="year" disabled>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="branch">Branch</label>
+            <select id="branch" disabled>
+              <option value="Computer Engineering">Computer Engineering</option>
+              <option value="Information Technology">Information Technology</option>
+              <option value="Electronics and Telecommunication">Electronics and Telecommunication</option>
+              <option value="Electronics and Computer">Electronics and Computer</option>
+              <option value="Artificial Intelligence and Data Science">Artificial Intelligence and Data Science</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="club">Club</label>
+            <select id="club" disabled>
+              <option value="1">None</option>
+              <option value="2">P.I.S.B.(PICT IEEE Student Branch)</option>
+              <option value="3">PICT Automobile Club</option>
+              <option value="4">PASC</option>
+              <option value="5">ETHICRAFT CLUB</option>
+              <option value="6">PICTOREAL</option>
+              <option value="7">GameDevUtopia</option>
+              <option value="8">PICT CyberCell</option>
+              <option value="9">PICT CSI Student Branch (PCSB)</option>
+              <option value="10">AWS Cloud Clubs PICT</option>
+              <option value="11">TEDxPICT</option>
+              <option value="12">PICT Finance Society (PFISOC)</option>
+              <option value="13">EDC (Entrepreneurship Development Cell)</option>
+              <option value="14">PICT MUN</option>
+              <option value="15">PICT DebSoc - Debate Society</option>
+              <option value="16">PICT Robotics</option>
+              <option value="17">PICT NSS</option>
+              <option value="18">PICT Art Circle</option>
+              <option value="19">PICT Nakshatra</option>
+              <option value="20">PICT CSAC</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="skills">Skills / Domains</label>
+            <input type="text" id="skills" placeholder="e.g., Python, AIML (comma-separated)" disabled />
+          </div>
+
+          <div class="form-buttons">
+            <button type="button" id="edit-profile-btn">Edit Profile</button>
+            <button type="submit" id="save-profile-btn" class="hidden">Save Changes</button>
+            <button type="button" id="cancel-edit-btn" class="hidden">Cancel</button>
+          </div>
+          <p class="message" id="form-message"></p>
+        </form>
+      </div>
+    </main>
+
+    <script src="js/profile.js"></script>
+  </body>
+</html>
