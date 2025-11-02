@@ -1,10 +1,16 @@
 /* --- Global Styles --- */
-body {
-  font-family: Arial, sans-serif;
+* {
   margin: 0;
   padding: 0;
-  background-color: #f0f2f5;
-  color: #333;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f6fa;
+  color: #2c3e50;
 }
 
 .nav-container,
@@ -17,7 +23,7 @@ body {
 
 /* --- 1. Navigation Bar --- */
 .homepage-nav {
-  background-color: #fff;
+  background-color: #2c3e50;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1rem 0;
   position: sticky;
@@ -33,101 +39,117 @@ body {
 
 .nav-logo {
   font-size: 1.5rem;
-  font-weight: 700;
-  color: #007bff;
+  font-weight: 600;
+  color: #ecf0f1;
   text-decoration: none;
-  display: flex;         /* <-- ADD THIS */
-  align-items: center;  /* <-- ADD THIS */
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo:hover {
+  color: #3498db;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .nav-link {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  color: #555;
+  color: #ecf0f1;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 .nav-link:hover {
-  color: #007bff;
+  color: #3498db;
 }
 
 .nav-link-btn {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 500;
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.2rem;
   border-radius: 4px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .nav-link-btn {
-  color: #007bff;
-  border: 1px solid #007bff;
+  color: #ecf0f1;
+  border: 1px solid #ecf0f1;
 }
+
 .nav-link-btn.primary {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #3498db;
+  color: white;
+  border: 1px solid #3498db;
 }
+
 .nav-link-btn:hover {
-  background-color: #0056b3;
-  color: #fff;
-  border-color: #0056b3;
+  background-color: #2980b9;
+  color: white;
+  border-color: #2980b9;
+}
+
+.nav-link-btn.primary:hover {
+  background-color: #2980b9;
+  border-color: #2980b9;
 }
 
 /* --- 2. Hero Section --- */
 .hero {
-  background-color: #fff;
+  background-color: #34495e;
   padding: 6rem 0;
   text-align: center;
+  color: white;
 }
 
 .hero-headline {
   font-size: 3rem;
   font-weight: 700;
-  color: #222;
   margin: 0;
+  line-height: 1.2;
 }
 
 .hero-subheadline {
   font-size: 1.25rem;
-  color: #555;
-  max-width: 600px;
-  margin: 1rem auto 2rem;
+  max-width: 650px;
+  margin: 1.5rem auto 2.5rem;
   line-height: 1.6;
+  opacity: 0.95;
 }
 
 .hero-btn {
   font-size: 1.1rem;
-  font-weight: 600;
-  color: #fff;
-  background-color: #007bff;
-  padding: 0.8rem 2rem;
+  font-weight: 500;
+  color: white;
+  background-color: #3498db;
+  padding: 0.75rem 2rem;
   border-radius: 4px;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
+  display: inline-block;
 }
 
 .hero-btn:hover {
-  background-color: #0056b3;
+  background-color: #2980b9;
 }
 
 /* --- 3. Features Section --- */
 .features {
-  padding: 4rem 0;
+  padding: 5rem 0;
   text-align: center;
+  background-color: white;
 }
 
 .features h2 {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 3rem;
+  color: #2c3e50;
 }
 
 .features-grid {
@@ -137,29 +159,36 @@ body {
 }
 
 .feature-card {
-  background-color: #fff;
+  background-color: #f8f9fa;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   text-align: left;
+  transition: transform 0.2s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .feature-icon {
   width: 48px;
   height: 48px;
-  color: #007bff;
-  margin-bottom: 1rem;
+  color: #3498db;
+  margin-bottom: 1.25rem;
 }
 
 .feature-card h3 {
   font-size: 1.25rem;
   font-weight: 600;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.75rem 0;
+  color: #2c3e50;
 }
 
 .feature-card p {
-  font-size: 1rem;
-  color: #555;
+  font-size: 0.95rem;
+  color: #5a6c7d;
   line-height: 1.6;
   margin: 0;
 }
@@ -168,12 +197,100 @@ body {
 .homepage-footer {
   text-align: center;
   padding: 2rem 0;
-  background-color: #fff;
-  border-top: 1px solid #eee;
-  margin-top: 2rem;
+  background-color: #2c3e50;
+  color: #ecf0f1;
 }
 
 .homepage-footer p {
   margin: 0;
-  color: #777;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-container,
+  .hero-container,
+  .features-container {
+    width: 95%;
+  }
+
+  .hero {
+    padding: 4rem 0;
+  }
+
+  .hero-headline {
+    font-size: 2rem;
+  }
+
+  .hero-subheadline {
+    font-size: 1.1rem;
+  }
+
+  .features {
+    padding: 3rem 0;
+  }
+
+  .features h2 {
+    font-size: 1.75rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .homepage-nav .nav-container {
+    flex-wrap: wrap;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
+  }
+
+  .nav-logo svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-links {
+    gap: 0.75rem;
+  }
+
+  .nav-link,
+  .nav-link-btn {
+    font-size: 0.85rem;
+  }
+
+  .hero {
+    padding: 3rem 0;
+  }
+
+  .hero-headline {
+    font-size: 1.75rem;
+  }
+
+  .hero-subheadline {
+    font-size: 1rem;
+    margin: 1rem auto 2rem;
+  }
+
+  .hero-btn {
+    font-size: 1rem;
+    padding: 0.65rem 1.5rem;
+  }
+
+  .features {
+    padding: 2rem 0;
+  }
+
+  .features h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+  }
 }

@@ -1,11 +1,18 @@
 /* frontend/css/clubs.css */
 
 .club-list-container {
-  background-color: #fff;
+  background-color: white;
   padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.club-list-container h2 {
+  color: #2c3e50;
+  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 #club-list-buttons {
@@ -15,36 +22,77 @@
 }
 
 .club-button {
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 1.25rem;
   font-size: 0.9rem;
-  font-weight: 600;
-  color: #007bff;
-  background-color: #f8f9fa;
-  border: 1px solid #007bff;
+  font-weight: 500;
+  color: #2c3e50;
+  background-color: #ecf0f1;
+  border: 1px solid #bdc3c7;
   border-radius: 4px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
-.club-button:hover, .club-button.active {
-  background-color: #007bff;
-  color: #fff;
+.club-button:hover {
+  background-color: #d5dbdb;
+  border-color: #3498db;
+}
+
+.club-button.active {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
 }
 
 .club-member-container {
-  display: none; /* Hidden by default */
+  display: none;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 #member-list-title {
-  color: #333;
-  margin-bottom: 1rem;
+  color: #2c3e50;
+  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-/* We re-use .user-card from dashboard.css */
-/* But we need to make the chat button work for ALL users */
 #member-list .user-card button {
-  background-color: #28a745;
+  background-color: #27ae60;
 }
+
 #member-list .user-card button:hover {
-  background-color: #218838;
+  background-color: #229954;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .club-list-container,
+  .club-member-container {
+    padding: 1rem;
+  }
+
+  .club-button {
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .club-list-container,
+  .club-member-container {
+    padding: 0.75rem;
+    border-radius: 4px;
+  }
+
+  .club-list-container h2,
+  #member-list-title {
+    font-size: 1.25rem;
+  }
+
+  .club-button {
+    width: 100%;
+  }
 }
